@@ -81,7 +81,7 @@
     <div class="container">
         <h1>Willkommen!</h1>
         <p>Um das ultra geheime und tolle Geschenk freizuschalten musste Du drei Fragen beantworten, Eine schwerer als die Andere :O.</p>
-        <p>Da wir uns im Bereich der Informatik bewegen werden die Fragen auf Englisch gestellt :O, aber das sollte kein Problem sein</p>
+        <p>Fragen auf Englisch weil deutsch ist irgendwie blöd wenn Computer:O</p>
         <div id="quizContainer">
             <!-- Question 1 -->
             <div id="q1" class="question-section active">
@@ -104,9 +104,10 @@
 
             <!-- Question 3 -->
             <div id="q3" class="question-section">
-                <h2>Challenge 3: Algorithm Design & Analysis</h2>
-                <p>A hash table uses **open addressing with linear probing**. If the load factor approaches 1, what phenomenon significantly degrades performance?</p>
-                <input type="text" id="answer3" placeholder="Your answer (one or two words)">
+                <h2>Challenge 3: Networking & Subnetting</h2>
+                <p>A network needs to support **at least 50 host addresses**. What is the smallest CIDR prefix (e.g., /26, /27) that can accommodate this, providing enough host bits?</p>
+                <p>Enter the prefix (e.g., /26).</p>
+                <input type="text" id="answer3" placeholder="e.g., /26">
                 <button onclick="checkAnswer(3)">Submit Final Challenge</button>
                 <p id="feedback3" class="feedback"></p>
             </div>
@@ -130,9 +131,9 @@
             },
             {
                 id: 3,
-                question: "A hash table uses **open addressing with linear probing**. If the load factor approaches 1, what phenomenon significantly degrades performance?",
-                correctAnswer: "clustering", // Accept 'primary clustering' as well
-                feedback: "Incorrect. Consider what happens when many collisions occur with linear probing."
+                question: "A network needs to support **at least 50 host addresses**. What is the smallest CIDR prefix (e.g., /26, /27) that can accommodate this, providing enough host bits?",
+                correctAnswer: "/26", // 2^6 - 2 = 62 usable hosts for /26 (32-26 = 6 host bits)
+                feedback: "Incorrect. Re-evaluate the number of host bits required for 50 addresses, accounting for network and broadcast."
             }
         ];
 
@@ -188,7 +189,7 @@
             const userAnswer = document.getElementById(`answer${questionNum}`).value.trim().toLowerCase();
             const feedbackElement = document.getElementById(`feedback${questionNum}`);
 
-            if (userAnswer === currentQ.correctAnswer.toLowerCase() || (questionNum === 3 && userAnswer === "primary clustering")) {
+            if (userAnswer === currentQ.correctAnswer.toLowerCase()) {
                 feedbackElement.textContent = "Correct!";
                 feedbackElement.style.color = "green";
 
