@@ -33,4 +33,30 @@ window.addEventListener('load', function() {
 
     // Start the game
     gameLoop(0, ctx, gameState, scoreElement);
+
+    const howToPlayButton = document.getElementById('how-to-play-button');
+    const modalOverlay = document.getElementById('modal-overlay');
+    const closeButton = document.getElementById('close-button');
+
+    // Funktion zum Öffnen des Modals
+    howToPlayButton.addEventListener('click', () => {
+        modalOverlay.style.display = 'flex';
+    });
+
+    // Funktion zum Schließen des Modals
+    const closeModal = () => {
+        modalOverlay.style.display = 'none';
+    };
+
+    closeButton.addEventListener('click', (e) => {
+        e.preventDefault(); // Verhindert, dass die Seite nach oben springt
+        closeModal();
+    });
+
+    // Schließt das Modal auch, wenn man auf den dunklen Hintergrund klickt
+    modalOverlay.addEventListener('click', (e) => {
+        if (e.target === modalOverlay) {
+            closeModal();
+        }
+    });
 });

@@ -1,67 +1,95 @@
 /* --- Grundlegendes Layout & Hintergrund --- */
 body {
-    /* Ein dunkler Hintergrund lässt Neonfarben leuchten */
     background-color: #111;
     color: #eee;
     font-family: 'Consolas', 'Courier New', monospace;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
     margin: 0;
+    padding: 20px; /* Etwas Abstand am Rand */
 }
 
-/* NEU: Flexbox-Container für Spiel und Anleitung */
+/* NEU: Richtet den Button und das Spiel untereinander aus */
 #app-container {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px; /* Abstand zwischen Button und Spiel */
+}
+
+/* --- NEU: Styling für den "How to Play"-Button --- */
+#how-to-play-button {
+    background: transparent;
+    border: 2px solid cyan;
+    border-radius: 5px;
+    color: cyan;
+    padding: 10px 20px;
+    font-family: inherit;
+    font-size: 16px;
+    cursor: pointer;
+    text-shadow: 0 0 5px #0ff;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+#how-to-play-button:hover {
+    background-color: cyan;
+    color: #111;
+}
+
+/* --- NEU: Styling für das Modal-Popup --- */
+
+/* Der halbtransparente Hintergrund, der alles abdeckt */
+#modal-overlay {
+    position: fixed; /* Bleibt beim Scrollen an Ort und Stelle */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* Schwarzer Hintergrund mit 80% Transparenz */
+    display: none; /* Standardmäßig unsichtbar */
     justify-content: center;
-    align-items: flex-start; /* Stellt sicher, dass die Oberkanten bündig sind */
-    gap: 30px; /* Abstand zwischen Spiel und Anleitung */
-    flex-wrap: wrap; /* Lässt die Anleitung auf kleinen Bildschirmen umbrechen */
-    border: 2px solid magenta;
+    align-items: center;
+    z-index: 1000; /* Stellt sicher, dass es über allem liegt */
 }
 
-
-/* --- Styling für die Spielanleitung --- */
-
+/* Die eigentliche Anleitungs-Box */
 #explanation {
-    width: 220px; /* Feste Breite für die Anleitung */
-    padding: 15px;
-    border-left: 2px solid magenta; /* Eine leuchtende Trennlinie */
+    background-color: #1a1a1a;
+    border: 2px solid magenta;
+    border-radius: 10px;
+    padding: 25px;
+    width: 90%;
+    max-width: 400px;
+    position: relative; /* Wichtig für den Schließen-Button */
+    box-shadow: 0 0 20px magenta;
 }
 
+/* Der Schließen-Button (das 'X') */
+#close-button {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    color: #fff;
+    font-size: 30px;
+    text-decoration: none;
+    line-height: 1;
+}
+
+/* Das Styling innerhalb der Box (fast wie vorher) */
 #explanation h2 {
     color: magenta;
     text-align: center;
     margin-top: 0;
     font-size: 24px;
-    /* Der magische Neon-Glow-Effekt */
     text-shadow:
-            0 0 5px #fff,
-            0 0 10px #fff,
-            0 0 15px #f0f, /* Magenta */
-            0 0 20px #f0f,
-            0 0 25px #f0f;
+            0 0 5px #fff, 0 0 10px #fff, 0 0 15px #f0f,
+            0 0 20px #f0f, 0 0 25px #f0f;
 }
 
-#explanation ul {
-    list-style: none;
-    padding: 0;
-}
-
+#explanation ul { list-style: none; padding: 0; }
 #explanation li {
     color: cyan;
-    margin-bottom: 20px; /* Abstand zwischen den Anleitungspunkten */
-    font-size: 14px;
+    margin-bottom: 20px;
+    font-size: 16px;
     line-height: 1.4;
-    /* Der magische Neon-Glow-Effekt für den Text */
-    text-shadow:
-            0 0 5px #0ff, /* Cyan */
-            0 0 8px #0ff;
+    text-shadow: 0 0 5px #0ff, 0 0 8px #0ff;
 }
-
-/* Macht den Titel des Listenelements etwas heller */
-#explanation li span {
-    color: #fff;
-    font-weight: bold;
-}
+#explanation li span { color: #fff; font-weight: bold; }
