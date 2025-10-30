@@ -9,8 +9,27 @@
 </head>
 <body>
 
-    <h3 id="score">Score: 0</h3>
-    <canvas id="gameCanvas"></canvas>
+<!-- NEU: Ein Haupt-Container für das gesamte Layout -->
+<div id="app-container">
+
+    <!-- Das ist dein bisheriger Spiel-Container -->
+    <div id="container">
+        <h3 id="score">Score: 0</h3>
+        <canvas id="gameCanvas"></canvas>
+    </div>
+
+    <!-- NEU: Der Container für die Spielanleitung -->
+    <div id="explanation">
+        <h2>How to Play</h2>
+        <ul>
+            <li><span>Move Paddle:</span><br>Drag with one finger.</li>
+            <li><span>Rotate Paddle:</span><br>Use two fingers to twist.</li>
+            <li><span>Nudge:</span><br>Double-tap the screen to give the ball a push!</li>
+            <li><span>Goal:</span><br>Keep the ball in play as long as possible!</li>
+        </ul>
+    </div>
+
+</div>
 
 
 </body>

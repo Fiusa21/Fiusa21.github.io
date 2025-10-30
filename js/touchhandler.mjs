@@ -1,4 +1,5 @@
 //all touch (input) events handled here
+import { triggerNudge } from './game.mjs';
 
 const inputState = {
     isDragging: false,
@@ -8,6 +9,9 @@ const inputState = {
     startTouchAngle: 0,
     startPaddleAngle: 0
 };
+
+let lastTapTime = 0;
+const DOUBLE_TAP_DELAY = 300;
 
 function getTouchPositions(e, canvas) {
     const rect = canvas.getBoundingClientRect();
@@ -30,6 +34,15 @@ export function initInputHandler(canvas, paddle, gameState) {
     const handleStart = (e) => {
         if (gameState.gameOver) return;
         e.preventDefault();
+        // Logik zur Erkennung des Doppeltipps
+        const currentTime = performance.now();
+        if (currentTime - lastTapTime < DOUBLE_TAP_DELAY) {
+            triggerNudge(gameState); // Nudge-Funktion aufrufen
+            lastTapTime = 0; // Zeit zurücksetzen, um einen Dreifach-Tipp zu verhindern
+        } else {
+            lastTapTime = currentTime;
+        }
+
         const points = getTouchPositions(e, canvas);
         if (points.length === 1) {
             inputState.isDragging = true;

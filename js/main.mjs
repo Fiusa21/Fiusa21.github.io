@@ -23,8 +23,9 @@ window.addEventListener('load', function() {
         gameOver: false,
         lastTime: 0,
         paddle: createPaddle(canvas),
-        ball: createBall(canvas), // CHANGED
-        obstacles: createObstacles(canvas) // CHANGED
+        ball: createBall(canvas),
+        obstacles: createObstacles(canvas),
+        isNudging: false
     };
 
     // Initialize the input listeners

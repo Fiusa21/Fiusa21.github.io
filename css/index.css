@@ -1,23 +1,67 @@
+/* --- Grundlegendes Layout & Hintergrund --- */
 body {
-    margin: 0;
+    /* Ein dunkler Hintergrund lässt Neonfarben leuchten */
     background-color: #111;
+    color: #eee;
+    font-family: 'Consolas', 'Courier New', monospace;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    font-family: sans-serif;
-    color: #eee;
-    text-align: center; }
+    min-height: 100vh;
+    margin: 0;
+}
 
-canvas {
-    background-color: #1a1a1a;
-    display: block;
-    touch-action: none;
-    border: 1px solid #333; }
-
-
-#container {
-
+/* NEU: Flexbox-Container für Spiel und Anleitung */
+#app-container {
     display: flex;
-    flex-direction: column;
-    align-items: center; }
+    justify-content: center;
+    align-items: flex-start; /* Stellt sicher, dass die Oberkanten bündig sind */
+    gap: 30px; /* Abstand zwischen Spiel und Anleitung */
+    flex-wrap: wrap; /* Lässt die Anleitung auf kleinen Bildschirmen umbrechen */
+    border: 2px solid magenta;
+}
+
+
+/* --- Styling für die Spielanleitung --- */
+
+#explanation {
+    width: 220px; /* Feste Breite für die Anleitung */
+    padding: 15px;
+    border-left: 2px solid magenta; /* Eine leuchtende Trennlinie */
+}
+
+#explanation h2 {
+    color: magenta;
+    text-align: center;
+    margin-top: 0;
+    font-size: 24px;
+    /* Der magische Neon-Glow-Effekt */
+    text-shadow:
+            0 0 5px #fff,
+            0 0 10px #fff,
+            0 0 15px #f0f, /* Magenta */
+            0 0 20px #f0f,
+            0 0 25px #f0f;
+}
+
+#explanation ul {
+    list-style: none;
+    padding: 0;
+}
+
+#explanation li {
+    color: cyan;
+    margin-bottom: 20px; /* Abstand zwischen den Anleitungspunkten */
+    font-size: 14px;
+    line-height: 1.4;
+    /* Der magische Neon-Glow-Effekt für den Text */
+    text-shadow:
+            0 0 5px #0ff, /* Cyan */
+            0 0 8px #0ff;
+}
+
+/* Macht den Titel des Listenelements etwas heller */
+#explanation li span {
+    color: #fff;
+    font-weight: bold;
+}

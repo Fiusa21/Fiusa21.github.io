@@ -5,6 +5,28 @@ import { drawPaddle } from './paddle.mjs';
 import { drawObstacles, updateObstacles } from './obstacle.mjs';
 import { checkCollisions } from './physics.mjs';
 
+
+
+
+export function triggerNudge(gameState) {
+    // Verhindern, dass man rüttelt, während schon gerüttelt wird
+    if (gameState.isNudging) return;
+
+    gameState.isNudging = true;
+
+    // Dem Ball einen kleinen, zufälligen Stoß geben
+    // Hauptsächlich ein kleiner Stoß nach oben, um den Ball zu retten
+    gameState.ball.vy *= -1;
+
+    // Den Nudge-Zustand nach kurzer Zeit wieder zurücksetzen
+    setTimeout(() => {
+        gameState.isNudging = false;
+    }, 150); // Der Rüttel-Effekt dauert 150ms
+}
+
+
+
+
 // The main update function for the entire game state
 export function updateGame(gameState, deltaTime) {
     if (gameState.gameOver) return;
@@ -25,10 +47,25 @@ export function updateGame(gameState, deltaTime) {
 
 // The main draw function
 export function drawGame(ctx, gameState) {
+    // Speichert den aktuellen Zustand des Canvas (ohne Transformationen)
+    ctx.save();
+
+    // NEU: Wenn genudged wird, wird der ganze Canvas leicht verschoben
+    if (gameState.isNudging) {
+        const shakeIntensity = 8; // Wie stark der Bildschirm wackelt
+        const shakeX = (Math.random() - 0.5) * shakeIntensity;
+        const shakeY = (Math.random() - 0.5) * shakeIntensity;
+        ctx.translate(shakeX, shakeY);
+    }
+
+    // Die eigentliche Zeichenlogik
     ctx.clearRect(0, 0, gameState.canvas.width, gameState.canvas.height);
     drawObstacles(ctx, gameState.obstacles);
     drawBall(ctx, gameState.ball);
     drawPaddle(ctx, gameState.paddle);
+
+    // Setzt den Canvas in den Zustand vor dem ctx.save() zurück
+    ctx.restore();
 }
 
 // The recursive game loop
