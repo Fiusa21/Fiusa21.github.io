@@ -50,6 +50,37 @@ body {
     z-index: 1000; /* Stellt sicher, dass es über allem liegt */
 }
 
+#start-overlay {
+    position: fixed; /* Bleibt beim Scrollen an Ort und Stelle */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* Schwarzer Hintergrund mit 80% Transparenz */
+    display: none; /* Standardmäßig unsichtbar */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Stellt sicher, dass es über allem liegt */
+}
+
+#game-over-overlay {
+    position: fixed; /* Bleibt beim Scrollen an Ort und Stelle */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* Schwarzer Hintergrund mit 80% Transparenz */
+    display: none; /* Standardmäßig unsichtbar */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    color: cyan;
+    font-size: 30px;
+    text-decoration: none;
+    line-height: 1;
+    text-shadow: 0 0 5px #0ff;
+}
+
 /* Die eigentliche Anleitungs-Box */
 #explanation {
     background-color: #1a1a1a;
@@ -68,9 +99,23 @@ body {
     top: 10px;
     right: 15px;
     color: #fff;
+    font-size: 20px;
+    text-decoration: none;
+    line-height: 1;
+}
+
+#start-button {
+    top: 10px;
+    right: 15px;
+    color: cyan;
     font-size: 30px;
     text-decoration: none;
     line-height: 1;
+    text-shadow: 0 0 5px #0ff;
+}
+
+#start-button:hover {
+    background-color: magenta;
 }
 
 /* Das Styling innerhalb der Box (fast wie vorher) */

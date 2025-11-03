@@ -7,6 +7,9 @@ import { checkCollisions } from './physics.mjs';
 
 
 
+const gameOverOverlay = document.getElementById('game-over-overlay');
+const finalScoreElement = document.getElementById('final-score');
+
 
 export function triggerNudge(gameState) {
     // Verhindern, dass man rüttelt, während schon gerüttelt wird
@@ -80,6 +83,10 @@ export function gameLoop(timestamp, ctx, gameState, scoreElement) {
         scoreElement.textContent = `Score: ${Math.floor(gameState.score)}`;
         requestAnimationFrame((ts) => gameLoop(ts, ctx, gameState, scoreElement));
     } else {
-        scoreElement.textContent = `Game Over! Score: ${Math.floor(gameState.score)}`;
+        const finalScore = Math.floor(gameState.score);
+        scoreElement.textContent = `Game Over! Score: ${finalScore}`;
+
+        finalScoreElement.textContent = finalScore;
+        gameOverOverlay.style.display = 'flex';
     }
 }

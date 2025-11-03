@@ -11,6 +11,8 @@ window.addEventListener('load', function() {
     const canvas = document.getElementById('gameCanvas');
     const scoreElement = document.getElementById('score');
     const ctx = canvas.getContext('2d');
+    const startOverlay = document.getElementById('start-overlay');
+    const startButton = document.getElementById('start-button');
 
     // Set canvas dimensions
     canvas.width = Math.min(window.innerWidth * 0.9, 400);
@@ -28,11 +30,25 @@ window.addEventListener('load', function() {
         isNudging: false
     };
 
-    // Initialize the input listeners
+    //display start menu
+    startOverlay.style.display = 'flex';
+    //initialize the input listeners
     initInputHandler(canvas, gameState.paddle, gameState);
 
-    // Start the game
-    gameLoop(0, ctx, gameState, scoreElement);
+    //start game when clicked and close overlay
+    startButton.addEventListener('click', () => {
+        //reset state since timer would already be running
+        gameState.gameOver = false;
+        gameState.score = 0;
+        gameState.lastTime = performance.now();
+
+        //start the game loop
+        requestAnimationFrame((ts) => gameLoop(ts, ctx, gameState, scoreElement));
+        startOverlay.style.display = 'none';
+    })
+
+
+
 
     const howToPlayButton = document.getElementById('how-to-play-button');
     const modalOverlay = document.getElementById('modal-overlay');
