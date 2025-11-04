@@ -9,20 +9,19 @@
 </head>
 <body>
 
-<!-- NEU: Ein Haupt-Container für das gesamte Layout -->
-<!-- NEU: Ein Haupt-Container, der alles ordnet -->
+
 <div id="app-container">
 
-    <!-- NEU: Der Button, um die Anleitung anzuzeigen -->
+
     <button id="how-to-play-button">How to Play</button>
 
-    <!-- Das ist dein bisheriger Spiel-Container -->
+
     <div id="container">
         <h3 id="score">Score: 0</h3>
         <canvas id="gameCanvas"></canvas>
     </div>
 
-</div> <!-- Ende von app-container -->
+</div>
 
 
 <div id="start-overlay">
@@ -35,15 +34,16 @@
 
 <div id="game-over-overlay">
     <p>Game over! Final Score: <span id="final-score">0</span></p>
-
+    <button id="restart-button">Restart!</button>
+‚
 </div>
 
 
 
-<!-- NEU: Das Modal für die Anleitung (zuerst unsichtbar) -->
+
 <div id="modal-overlay">
     <div id="explanation">
-        <!-- NEU: Ein Schließen-Button -->
+
         <a href="#" id="close-button">&times;</a>
 
         <h2>How to Play</h2>

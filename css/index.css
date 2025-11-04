@@ -27,6 +27,20 @@ body {
     cursor: pointer;
     text-shadow: 0 0 5px #0ff;
     transition: background-color 0.3s, color 0.3s;
+    display: flex;
+}
+
+#restart-button {
+    background: transparent;
+    border: 2px solid cyan;
+    border-radius: 5px;
+    color: cyan;
+    padding: 10px 20px;
+    font-family: inherit;
+    font-size: 16px;
+    cursor: pointer;
+    text-shadow: 0 0 5px #0ff;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 #how-to-play-button:hover {

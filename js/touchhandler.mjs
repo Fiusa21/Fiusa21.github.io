@@ -29,16 +29,16 @@ function getAngle(p1, p2) {
     return Math.atan2(p2.y - p1.y, p2.x - p1.x);
 }
 
-// The main function that attaches all listeners
+//the main function that attaches all listeners
 export function initInputHandler(canvas, paddle, gameState) {
     const handleStart = (e) => {
         if (gameState.gameOver) return;
         e.preventDefault();
-        // Logik zur Erkennung des Doppeltipps
+        //doubletap?
         const currentTime = performance.now();
         if (currentTime - lastTapTime < DOUBLE_TAP_DELAY) {
-            triggerNudge(gameState); // Nudge-Funktion aufrufen
-            lastTapTime = 0; // Zeit zurücksetzen, um einen Dreifach-Tipp zu verhindern
+            triggerNudge(gameState);
+            lastTapTime = 0; //prevent tripple tap
         } else {
             lastTapTime = currentTime;
         }
