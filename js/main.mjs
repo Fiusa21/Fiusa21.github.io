@@ -52,7 +52,8 @@ window.addEventListener('load', function() {
 
     const howToPlayButton = document.getElementById('how-to-play-button');
     const modalOverlay = document.getElementById('modal-overlay');
-    const closeButton = document.getElementById('close-button');
+
+    const restartButton = document.getElementById('restart-button');const closeButton = document.getElementById('close-button');
 
 
     howToPlayButton.addEventListener('click', () => {
@@ -74,5 +75,9 @@ window.addEventListener('load', function() {
         if (e.target === modalOverlay) {
             closeModal();
         }
+    });
+    restartButton.addEventListener('click', () => {
+        // *** THIS IS THE ONLY CHANGE ***
+        window.location.reload(); // Reloads the entire page
     });
 });
