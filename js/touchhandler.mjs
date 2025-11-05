@@ -2,21 +2,21 @@
 import { triggerNudge } from './game.mjs';
 
 const inputState = {
-    // Single-finger drag properties
+
     isDragging: false,
     startDragX: 0,
     startPaddleX: 0,
-    // Note: No startPaddleY for single drag, as it's X-only
 
-    // Multi-finger (two-finger) drag and rotate properties
+
+    //Multi-finger (two-finger) drag and rotate properties
     isInteractingMulti: false,
-    startPaddleXMulti: 0,   // Initial paddle X for multi-touch drag
-    startPaddleAngleMulti: 0, // Initial paddle angle for multi-touch rotate
+    startPaddleXMulti: 0,   //Initial paddle X for multi-touch drag
+    startPaddleAngleMulti: 0, //Initial paddle angle for multi-touch rotate
 
-    startMidPointX: 0,      // Initial X-coordinate of the midpoint of two touches for drag
-    // Note: No startMidPointY for multi-touch drag, as it's X-only
+    startMidPointX: 0,      //Initial X-coordinate of the midpoint of two touches for drag
 
-    startTouchAngle: 0,     // Initial angle between two touches for rotation
+
+    startTouchAngle: 0,     //Initial angle between two touches for rotation
 };
 
 let lastTapTime = 0;
@@ -44,7 +44,7 @@ export function initInputHandler(canvas, paddle, gameState) {
         if (gameState.gameOver) return;
         e.preventDefault();
 
-        // --- DOUBLE TAP LOGIC (UNCHANGED) ---
+        //double tap logic
         const currentTime = performance.now();
         if (currentTime - lastTapTime < DOUBLE_TAP_DELAY) {
             triggerNudge(gameState);
@@ -52,7 +52,7 @@ export function initInputHandler(canvas, paddle, gameState) {
         } else {
             lastTapTime = currentTime;
         }
-        // --- END DOUBLE TAP LOGIC ---
+
 
 
         const points = getTouchPositions(e, canvas);
@@ -91,14 +91,14 @@ export function initInputHandler(canvas, paddle, gameState) {
         const points = getTouchPositions(e, canvas);
 
         if (inputState.isInteractingMulti && points.length >= 2) {
-            // --- COMBINED TWO-FINGER DRAG (X-ONLY) AND ROTATE LOGIC ---
+
 
             // 1. Handle X-direction Drag
             const currentMidPointX = (points[0].x + points[1].x) / 2;
             const dx = currentMidPointX - inputState.startMidPointX;
             paddle.x = inputState.startPaddleXMulti + dx;
 
-            // NO Y-DIRECTION DRAG: Removed currentMidPointY, dy, and paddle.y update.
+
 
             // 2. Handle Rotation
             const currentAngle = getAngle(points[0], points[1]);
@@ -106,7 +106,7 @@ export function initInputHandler(canvas, paddle, gameState) {
             paddle.angle = inputState.startPaddleAngleMulti + dAngle;
 
         } else if (inputState.isDragging && points.length === 1) {
-            // --- SINGLE-FINGER DRAG (X-ONLY) LOGIC (UNCHANGED) ---
+            //singe finger logic, better for smaller screens
             const dx = points[0].x - inputState.startDragX;
             paddle.x = inputState.startPaddleX + dx;
         }

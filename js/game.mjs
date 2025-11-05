@@ -1,4 +1,4 @@
-// js/game.js
+
 
 import { drawBall, updateBall } from './ball.mjs';
 import { drawPaddle } from './paddle.mjs';

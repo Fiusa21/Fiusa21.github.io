@@ -1,4 +1,4 @@
-// js/main.js
+
 
 import { createPaddle } from './paddle.mjs';
 import { createBall } from './ball.mjs';
