@@ -2,22 +2,21 @@
 import { triggerNudge } from './game.mjs';
 
 const inputState = {
-    // Single-finger drag properties
-    isDraggingSingle: false, // Renamed for clarity
+    // Single-finger drag properties (isDragging, startDragX, startPaddleX)
+    isDragging: false, // This will now *only* be for single-finger drag
     startDragX: 0,
     startPaddleX: 0,
-    startPaddleY: 0, // Added for potential single-finger vertical drag
+    // Note: No startPaddleY for single drag, as it's X-only
 
     // Multi-finger (two-finger) drag and rotate properties
     isInteractingMulti: false,
-    startPaddleXMulti: 0,   // Initial paddle X for multi-touch drag
-    startPaddleYMulti: 0,   // Initial paddle Y for multi-touch drag (if you want Y-axis drag)
-    startPaddleAngle: 0,    // Initial paddle angle for multi-touch rotate
+    startPaddleXMulti: 0, // Initial paddle X for multi-touch drag
+    startPaddleAngleMulti: 0, // Initial paddle angle for multi-touch rotate (renamed for clarity)
 
-    startMidPointX: 0,      // Initial X-coordinate of the midpoint of two touches
-    startMidPointY: 0,      // Initial Y-coordinate of the midpoint of two touches
+    startMidPointX: 0, // Initial X-coordinate of the midpoint of two touches for drag
+    // Note: No startMidPointY for multi-touch drag, as it's X-only
 
-    startTouchAngle: 0,     // Initial angle between two touches
+    startTouchAngle: 0, // Initial angle between two touches for rotation
 };
 
 let lastTapTime = 0;
@@ -28,12 +27,11 @@ function getTouchPositions(e, canvas) {
     if (e.touches) {
         return Array.from(e.touches).map(touch => ({
             x: touch.clientX - rect.left,
-            y: touch.clientY - rect.top,
-            id: touch.identifier // Keep touch ID for better multi-touch tracking if needed
+            y: touch.clientY - rect.top
         }));
     } else {
         // Handle mouse events as a single touch/point for compatibility
-        return [{ x: e.clientX - rect.left, y: e.clientY - rect.top, id: 0 }];
+        return [{ x: e.clientX - rect.left, y: e.clientY - rect.top }];
     }
 }
 
@@ -45,116 +43,99 @@ function getAngle(p1, p2) {
 export function initInputHandler(canvas, paddle, gameState) {
     const handleStart = (e) => {
         if (gameState.gameOver) return;
-        e.preventDefault(); // Prevent default browser touch behavior
+        e.preventDefault();
+
+        // --- DOUBLE TAP LOGIC (UNCHANGED) ---
+        const currentTime = performance.now();
+        if (currentTime - lastTapTime < DOUBLE_TAP_DELAY) {
+            triggerNudge(gameState);
+            lastTapTime = 0; //prevent tripple tap
+        } else {
+            lastTapTime = currentTime;
+        }
+        // --- END DOUBLE TAP LOGIC ---
+
 
         const points = getTouchPositions(e, canvas);
 
-        // --- Double Tap Check (only on first touch if multiple) ---
-        if (points.length === 1 && e.touches && e.touches.length === 1) { // Only check double tap for actual single touchstart
-            const currentTime = performance.now();
-            if (currentTime - lastTapTime < DOUBLE_TAP_DELAY) {
-                triggerNudge(gameState);
-                lastTapTime = 0; // Prevent triple tap
-            } else {
-                lastTapTime = currentTime;
-            }
-        }
-
-
-        // --- Input State Logic ---
         if (points.length === 1) {
-            // If currently only one finger, assume single-finger drag
-            inputState.isDraggingSingle = true;
+            // Start single-finger drag
+            inputState.isDragging = true;
             inputState.startDragX = points[0].x;
             inputState.startPaddleX = paddle.x;
-            inputState.startPaddleY = paddle.y; // Store Y for single-finger drag if needed
 
-            // Ensure multi-touch flags are off if only one touch
+            // Ensure multi-touch is off
             inputState.isInteractingMulti = false;
 
         } else if (points.length >= 2) {
-            // If two or more fingers, start multi-touch interaction
+            // Start multi-finger interaction
             inputState.isInteractingMulti = true;
-            inputState.isDraggingSingle = false; // Turn off single-drag if multi-touch starts
+            inputState.isDragging = false; // Turn off single-drag if multi-touch starts
 
             // Store initial paddle state for multi-touch reference
             inputState.startPaddleXMulti = paddle.x;
-            inputState.startPaddleYMulti = paddle.y;
-            inputState.startPaddleAngle = paddle.angle;
+            inputState.startPaddleAngleMulti = paddle.angle;
 
-            // Store the initial midpoint of the first two touches for dragging
+            // Calculate and store the initial midpoint X for dragging
             inputState.startMidPointX = (points[0].x + points[1].x) / 2;
-            inputState.startMidPointY = (points[0].y + points[1].y) / 2;
+            // No need for startMidPointY as drag is X-only
 
-            // Store the initial angle between the first two touches for rotation
+            // Calculate and store the initial angle between the first two touches for rotation
             inputState.startTouchAngle = getAngle(points[0], points[1]);
         }
     };
 
     const handleMove = (e) => {
         if (gameState.gameOver) return;
-        e.preventDefault(); // Prevent default browser touch behavior (e.g., scrolling)
+        e.preventDefault();
 
         const points = getTouchPositions(e, canvas);
 
         if (inputState.isInteractingMulti && points.length >= 2) {
-            // --- COMBINED DRAG AND ROTATE LOGIC ---
+            // --- COMBINED TWO-FINGER DRAG (X-ONLY) AND ROTATE LOGIC ---
 
-            // Calculate current midpoint for dragging
+            // 1. Handle X-direction Drag
             const currentMidPointX = (points[0].x + points[1].x) / 2;
-            const currentMidPointY = (points[0].y + points[1].y) / 2;
-
-            // Calculate drag displacement
             const dx = currentMidPointX - inputState.startMidPointX;
-            const dy = currentMidPointY - inputState.startMidPointY;
-
-            // Apply drag to paddle position
             paddle.x = inputState.startPaddleXMulti + dx;
-            paddle.y = inputState.startPaddleYMulti + dy; // Update Y for vertical multi-touch drag
 
-            // Calculate current angle for rotation
+            // 2. Handle Rotation
             const currentAngle = getAngle(points[0], points[1]);
-
-            // Calculate angular displacement
             const dAngle = currentAngle - inputState.startTouchAngle;
+            paddle.angle = inputState.startPaddleAngleMulti + dAngle;
 
-            // Apply rotation to paddle angle
-            paddle.angle = inputState.startPaddleAngle + dAngle;
-
-        } else if (inputState.isDraggingSingle && points.length === 1) {
-            // --- SINGLE-FINGER DRAG LOGIC ---
-            // This is your original single-finger drag, still useful!
+        } else if (inputState.isDragging && points.length === 1) {
+            // --- SINGLE-FINGER DRAG (X-ONLY) LOGIC (UNCHANGED) ---
             const dx = points[0].x - inputState.startDragX;
             paddle.x = inputState.startPaddleX + dx;
-            // If you want single-finger vertical drag too:
-            // const dy = points[0].y - inputState.startDragY; // assuming startDragY is stored
-            // paddle.y = inputState.startPaddleY + dy;
         }
-        // Mouse move when a mouse button is down would fall under isDraggingSingle here
     };
 
     const handleEnd = (e) => {
-        // Reset all interaction flags
-        inputState.isDraggingSingle = false;
-        inputState.isInteractingMulti = false;
+        // We need to ensure state is reset when fingers are lifted,
+        // especially when ALL fingers are lifted or for mouse events.
+        // This addresses the issue where `handleEnd` was too simplistic for multi-touch.
 
-        // This is important for multi-touch:
-        // touchend has `changedTouches` which are the fingers that lifted.
-        // `e.touches` still contains fingers that are *still down*.
-        // If `e.touches.length` is 0, all fingers are up.
-        // If it's 1, then we might transition to a single-finger drag.
-        // For simplicity, we'll reset both flags on any end for now.
-        // More robust solutions might track individual touch IDs to manage transitions.
+        // If it's a touch event and no touches remain, or if it's a mouse event.
+        if ((e.touches && e.touches.length === 0) || (!e.touches && (e.type === 'mouseup' || e.type === 'mouseleave'))) {
+            inputState.isDragging = false;
+            inputState.isInteractingMulti = false;
+        }
+        // If e.touches.length > 0 (for touch events), it means some fingers are still down,
+        // so we don't reset the flags yet, allowing for a transition from multi to single touch
+        // if a finger lifts, or continued multi-touch if more than one remain.
+        // For this specific setup where isDragging is for single and isInteractingMulti for multi,
+        // resetting both when any finger lifts could simplify things but might lead to lost context.
+        // The current logic tries to be more robust.
     };
 
     canvas.addEventListener('touchstart', handleStart);
     canvas.addEventListener('touchmove', handleMove);
     canvas.addEventListener('touchend', handleEnd);
-    canvas.addEventListener('touchcancel', handleEnd); // Treat touchcancel like touchend
+    canvas.addEventListener('touchcancel', handleEnd);
 
-    // Mouse events for desktop interaction (mimicking single touch)
     canvas.addEventListener('mousedown', handleStart);
     canvas.addEventListener('mousemove', handleMove);
     canvas.addEventListener('mouseup', handleEnd);
-    canvas.addEventListener('mouseleave', handleEnd); // Important for mouse events if drag leaves canvas
+    canvas.addEventListener('mouseleave', handleEnd);
 }
