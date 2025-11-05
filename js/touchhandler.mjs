@@ -59,7 +59,7 @@ export function initInputHandler(canvas, paddle, gameState) {
         if (gameState.gameOver) return;
         e.preventDefault();
         const points = getTouchPositions(e, canvas);
-        if (inputState.isDragging && points.length === 1) {
+        if (inputState.isInteractingMulti && points.length >= 2) {
             const dx = points[0].x - inputState.startDragX;
             paddle.x = inputState.startPaddleX + dx;
         } else if (inputState.isInteractingMulti && points.length >= 2) {
