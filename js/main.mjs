@@ -77,7 +77,6 @@ window.addEventListener('load', function() {
         }
     });
     restartButton.addEventListener('click', () => {
-        // *** THIS IS THE ONLY CHANGE ***
-        window.location.reload(); // Reloads the entire page
+        window.location.reload();
     });
 });
