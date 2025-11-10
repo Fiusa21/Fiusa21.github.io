@@ -1,13 +1,24 @@
-
+// ball.mjs
 
 //creates and returns a new ball object
-export function createBall(canvas) {
+export function createBall(canvas, difficulty) { // <--- Added difficulty parameter
+    const baseSpeed = 3; // Minimum speed at difficulty 1
+    const maxSpeedIncrease = 5; // Max additional speed at difficulty 10 (so total max speed is 3+5=8)
+
+    // Scale speed based on difficulty (1-10)
+    // For difficulty 1, scaleFactor = 0.
+    // For difficulty 10, scaleFactor = 1.
+    const scaleFactor = (difficulty - 1) / 9; // (difficulty - minDifficulty) / (maxDifficulty - minDifficulty)
+
+    const currentSpeed = baseSpeed + (maxSpeedIncrease * scaleFactor);
+
     return {
         x: canvas.width / 2,
         y: 50,
         radius: 8,
-        vx: (Math.random() - 0.5) * 4,
-        vy: 4,
+        // vx will have a random direction, but its magnitude scales with difficulty
+        vx: (Math.random() - 0.5) * 2 * currentSpeed, // Random direction, magnitude based on currentSpeed
+        vy: currentSpeed, // Initial vertical speed scales with currentSpeed
         color: '#FFF'
     };
 }
@@ -28,10 +39,9 @@ export function updateBall(ball, canvas) {
 
 //draws the ball
 export function drawBall(ctx, ball) {
-    console.log('Zeichne Ball:', ball);
+    // console.log('Zeichne Ball:', ball); // No need for this console log in production
     ctx.fillStyle = ball.color;
     ctx.beginPath();
     ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
     ctx.fill();
 }
-

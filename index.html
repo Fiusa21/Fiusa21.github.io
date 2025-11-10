@@ -18,10 +18,18 @@
     </div>
 </div>
 
+<!-- index.html -->
 <div id="start-overlay">
-        <ul>
-            <a href="#" id="start-button">Start the game</a>
-        </ul>
+    <div id="start-menu">
+        <!-- Add this section for difficulty -->
+        <div id="difficulty-selection">
+            <button class="difficulty-btn" data-difficulty="4">Easy</button>
+            <button class="difficulty-btn active" data-difficulty="7">Medium</button> <!-- Default selection -->
+            <button class="difficulty-btn" data-difficulty="10">Hard</button>
+        </div>
+
+        <button id="start-button">Start Game</button>
+    </div>
 </div>
 
 <div id="game-over-overlay">

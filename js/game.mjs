@@ -72,7 +72,7 @@ export function drawGame(ctx, gameState) {
 
 
 export function gameLoop(timestamp, ctx, gameState, scoreElement) {
-    const deltaTime = (timestamp - gameState.lastTime) / 1000;
+    const deltaTime = ((timestamp - gameState.lastTime) / 1000)*gameState.difficulty;
     gameState.lastTime = timestamp;
 
     updateGame(gameState, deltaTime || 0);

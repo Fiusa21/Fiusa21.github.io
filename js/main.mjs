@@ -1,7 +1,7 @@
-
+// index.js
 
 import { createPaddle } from './paddle.mjs';
-import { createBall } from './ball.mjs';
+import { createBall } from './ball.mjs'; // Updated import
 import { createObstacles } from './obstacle.mjs';
 import { initInputHandler } from './touchhandler.mjs';
 import { gameLoop } from './game.mjs';
@@ -13,7 +13,7 @@ window.addEventListener('load', function() {
     const ctx = canvas.getContext('2d');
     const startOverlay = document.getElementById('start-overlay');
     const startButton = document.getElementById('start-button');
-
+    const difficultyButtons = document.querySelectorAll('.difficulty-btn'); // Get buttons
 
     canvas.width = Math.min(window.innerWidth * 0.9, 400);
     canvas.height = Math.min(window.innerHeight * 0.8, 700);
@@ -21,14 +21,27 @@ window.addEventListener('load', function() {
     //initial game state
     const gameState = {
         canvas: canvas,
+        difficulty: 7, // Set default difficulty to Medium (as per HTML active class)
         score: 0,
         gameOver: false,
         lastTime: 0,
         paddle: createPaddle(canvas),
-        ball: createBall(canvas),
-        obstacles: createObstacles(canvas),
+        ball: null, // Ball created on start, after difficulty is chosen
+        obstacles: [], // Obstacles created on start
         isNudging: false
     };
+
+    // --- New: Difficulty Selection Logic ---
+    difficultyButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Remove 'active' from all buttons
+            difficultyButtons.forEach(btn => btn.classList.remove('active'));
+            // Add 'active' to the clicked button
+            button.classList.add('active');
+            // Update gameState with the new difficulty
+            gameState.difficulty = parseInt(button.dataset.difficulty, 10);
+        });
+    });
 
     //display start menu
     startOverlay.style.display = 'flex';
@@ -37,23 +50,25 @@ window.addEventListener('load', function() {
 
     //start game when clicked and close overlay
     startButton.addEventListener('click', () => {
-        //reset state since timer would already be running
+        //reset state
         gameState.gameOver = false;
         gameState.score = 0;
         gameState.lastTime = performance.now();
 
+        // --- IMPORTANT: Create ball and obstacles AFTER difficulty is chosen ---
+        gameState.ball = createBall(canvas, gameState.difficulty); // <--- Pass difficulty here
+        gameState.obstacles = createObstacles(canvas, gameState.difficulty);
+
         //start the game loop
         requestAnimationFrame((ts) => gameLoop(ts, ctx, gameState, scoreElement));
         startOverlay.style.display = 'none';
-    })
-
-
-
+    });
 
     const howToPlayButton = document.getElementById('how-to-play-button');
     const modalOverlay = document.getElementById('modal-overlay');
 
-    const restartButton = document.getElementById('restart-button');const closeButton = document.getElementById('close-button');
+    const restartButton = document.getElementById('restart-button');
+    const closeButton = document.getElementById('close-button');
 
 
     howToPlayButton.addEventListener('click', () => {
