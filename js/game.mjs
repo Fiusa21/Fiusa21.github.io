@@ -10,7 +10,7 @@ import { checkCollisions } from './physics.mjs';
 const gameOverOverlay = document.getElementById('game-over-overlay');
 const finalScoreElement = document.getElementById('final-score');
 
-
+//nudge animation in draw game
 export function triggerNudge(gameState) {
 
     if (gameState.isNudging) return;
@@ -52,7 +52,7 @@ export function drawGame(ctx, gameState) {
 
     ctx.save();
 
-
+    //nudge screen animation
     if (gameState.isNudging) {
         const shakeIntensity = 8;
         const shakeX = (Math.random() - 0.5) * shakeIntensity;
