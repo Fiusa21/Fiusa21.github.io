@@ -7,7 +7,8 @@ const inputState = {
     startDragX: 0,
     startPaddleX: 0,
     startTouchAngle: 0,
-    startPaddleAngle: 0
+    startPaddleAngle: 0,
+    startDragXMulti: 0 //for two finger drag
 };
 
 let lastTapTime = 0;
@@ -52,6 +53,9 @@ export function initInputHandler(canvas, paddle, gameState) {
             inputState.isInteractingMulti = true;
             inputState.startTouchAngle = getAngle(points[0], points[1]);
             inputState.startPaddleAngle = paddle.angle;
+            //for two finger drag
+            inputState.startDragXMulti = (points[0].x + points[1].x) / 2;
+            inputState.startPaddleX = paddle.x;
         }
     };
 
@@ -65,6 +69,10 @@ export function initInputHandler(canvas, paddle, gameState) {
         } else if (inputState.isInteractingMulti && points.length >= 2) {
             const currentAngle = getAngle(points[0], points[1]);
             paddle.angle = inputState.startPaddleAngle + (currentAngle - inputState.startTouchAngle);
+            //for two finger drag
+            const currentMidpointX = (points[0].x + points[1].x) / 2;
+            const dx = currentMidpointX - inputState.startDragXMulti;
+            paddle.x = inputState.startPaddleX + dx;
         }
     };
 
