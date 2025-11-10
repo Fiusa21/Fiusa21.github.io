@@ -1,4 +1,4 @@
-/* Add these styles to your index.css file */
+
 
 #start-menu {
     display: flex;
@@ -9,7 +9,7 @@
 #difficulty-selection {
     display: flex;
     gap: 15px;
-    margin-bottom: 25px; /* Adds space between difficulty buttons and start button */
+    margin-bottom: 25px;
 }
 
 .difficulty-btn {
@@ -25,7 +25,7 @@
     transition: background-color 0.3s, color 0.3s;
 }
 
-/* Style for the active/hovered button */
+
 .difficulty-btn:hover,
 .difficulty-btn.active {
     background-color: cyan;
@@ -33,12 +33,12 @@
     box-shadow: 0 0 10px cyan;
 }
 
-/* Ensure the start-button has some styles too */
+
 #start-button {
     background: transparent;
     border: 2px solid magenta;
     color: magenta;
-    /* ... other styles from your #start-button css ... */
+
 }
 
 body {
@@ -49,7 +49,7 @@ body {
     padding: 20px;
 }
 
-/* Added to create the canvas border */
+
 #gameCanvas {
     border: 2px solid cyan;
     box-shadow: 0 0 10px cyan;

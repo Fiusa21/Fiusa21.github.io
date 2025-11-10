@@ -21,7 +21,7 @@ window.addEventListener('load', function() {
     //initial game state
     const gameState = {
         canvas: canvas,
-        difficulty: 7, // Set default difficulty to Medium (as per HTML active class)
+        difficulty: 7,
         score: 0,
         gameOver: false,
         lastTime: 0,
@@ -31,7 +31,7 @@ window.addEventListener('load', function() {
         isNudging: false
     };
 
-    // --- New: Difficulty Selection Logic ---
+
     difficultyButtons.forEach(button => {
         button.addEventListener('click', () => {
             // Remove 'active' from all buttons
@@ -55,7 +55,7 @@ window.addEventListener('load', function() {
         gameState.score = 0;
         gameState.lastTime = performance.now();
 
-        // --- IMPORTANT: Create ball and obstacles AFTER difficulty is chosen ---
+        //CREATE AFTER DIFFICULTY IS CHOSEN!!!!
         gameState.ball = createBall(canvas, gameState.difficulty); // <--- Pass difficulty here
         gameState.obstacles = createObstacles(canvas, gameState.difficulty);
 
