@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="style.css">
   <!-- Importing a clean, modern font from Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
 
@@ -22,10 +23,11 @@
 
 <!-- Hero Banner with Band Photo & Logo -->
 <header class="hero">
-  <!-- Overlay makes text readable regardless of the photo brightness -->
   <div class="overlay"></div>
 
-
+  <div class="hero-content">
+    <img src="media/logo_white.png" alt="Band Logo" class="main-logo">
+  </div>
 
   <div class="scroll-indicator">
     <span>↓</span>
@@ -40,14 +42,25 @@
     <div class="placeholder-box">
       <img src="media/RED_Sample_cover.png" alt="Band Logo" class="band-logo">
     </div>
+    <div class="music-links">
+      <a href="https://www.youtube.com/watch?v=S1bAiLPKpPQ" target="_blank" class="music-link" title="Listen on YouTube">
+        <i class="fab fa-youtube"></i> YouTube
+      </a>
+      <a href="https://open.spotify.com/intl-de/track/000BzskB9zCFJbKDqCWluF?si=9c25a27c489a4d20" target="_blank" class="music-link" title="Listen on Spotify">
+        <i class="fab fa-spotify"></i> Spotify
+      </a>
+      <a href="https://music.apple.com/de/album/red/1892816789?i=1892816790" target="_blank" class="music-link" title="Listen on Apple Music">
+        <i class="fab fa-apple"></i> Apple Music
+      </a>
+    </div>
   </section>
 
   <section id="videos" class="content-section">
     <h2>Videos</h2>
-    <p>BROAD ISSUE Live in Ditzingen (FULL SET)</p>
+    <p>BROAD ISSUE - RED (Official Music-Video)</p>
     <div class="placeholder-box video-box">
       <iframe
-              src="https://www.youtube.com/watch?v=UzV1WyPXTb4"
+              src="https://www.youtube.com/watch?v=v9_g6g7D2kI"
               title="YouTube video player"
               frameborder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -59,15 +72,46 @@
   <section id="tour" class="content-section">
     <h2>Concert Dates</h2>
     <ul class="tour-list">
-      <li><span>MAR 07</span> <span>LEONBERG</span> <button>TICKETS</button></li>
-      <li><span>MAR 20</span> <span>LEONBERG</span> <button>TICKETS</button></li>
-      <li><span>APR 25</span> <span>KIRCHHEIM</span> <button>TICKETS</button></li>
+      <li>
+        <span>APR 25</span>
+        <span>KIRCHHEIM-TECK</span>
+        <a href="https://loveyourartist.com/de/events/brokencyde-dot-dot-curve-kirchheim-N3QR2J" class="ticket-button">TICKETS</a>
+      </li>
+      <li>
+        <span>MAY 09</span>
+        <span>GERLINGEN</span>
+        <a href="https://www.eventbrite.com/e/solitude-hc-tickets-1987306945571?aff=oddtdtcreator" class="ticket-button">TICKETS</a>
+      </li>
+      <li>
+        <span>MAY 16</span>
+        <span>GERLINGEN</span>
+        <a href="https://shop.niftee.eu/event/core-fest-goes-back-to-the-roots-stuttgart-club--xd8egk" class="ticket-button">TICKETS</a>
+      </li>
+      <li>
+        <span>DEC 05</span>
+        <span>STUTTGART</span>
+        <a href="" class="ticket-button">FREE!</a>
+      </li>
     </ul>
   </section>
 </main>
 
 <footer>
-  <img src="media/socials_placeholder.png" alt="Band Logo" class="socials-logo">
+  <h2>Find us on:</h2>
+  <div class="social-links">
+    <a href="https://www.youtube.com/@BroadIssue" target="_blank" class="social-link" title="Find us on YouTube">
+      <i class="fab fa-youtube"></i> YouTube
+    </a>
+    <a href="https://open.spotify.com/intl-de/artist/0Nx86hFjGPkztqyz0xb8Oo?si=rUjO8bFoRkqMWAHlz-_2uQ" target="_blank" class="social-link" title="Find us on Spotify">
+      <i class="fab fa-spotify"></i> Spotify
+    </a>
+    <a href="https://music.apple.com/de/artist/broad-issue/1892689223" target="_blank" class="social-link" title="Find os on Apple Music">
+      <i class="fab fa-apple"></i> Apple Music
+    </a>
+    <a href="https://www.instagram.com/broad_issue?igsh=MXhwNjZmZDAxZDJjdg==" target="_blank" class="social-link" title="Find os on Apple Music">
+      <i class="fab fa-instagram"></i> Instagram
+    </a>
+  </div>
   <p>&copy; 2026 BROAD ISSUE. All Rights Reserved.</p>
   <img src="media/logo.png" alt="Band Logo" class="band-logo-footer">
 
