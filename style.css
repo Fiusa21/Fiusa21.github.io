@@ -116,6 +116,14 @@ body {
     /* If using an image logo, remove border/padding and set width */
 }
 
+.single-logo {
+    font-size: 5rem;
+    font-weight: 700;
+    letter-spacing: 10px;
+    text-transform: uppercase;
+    width: 30%;
+    /* If using an image logo, remove border/padding and set width */
+}
 .band-logo-footer {
     font-size: 5rem;
     font-weight: 700;
@@ -170,8 +178,7 @@ h2 {
 }
 
 .placeholder-box img:hover {
-    width: 400px;
-    height: 400px;
+
 
 }
 
