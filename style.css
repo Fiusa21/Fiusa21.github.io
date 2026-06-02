@@ -136,6 +136,11 @@ body {
     width: 5%;
 }
 
+.past {
+    text-decoration: line-through;
+    opacity: 0.6; /* Macht die Zeile zusätzlich etwas blasser */
+}
+
 /* Animated Scroll Indicator */
 .scroll-indicator {
     position: absolute;
