@@ -302,6 +302,45 @@ footer {
     color: var(--accent-color);
 }
 
+.footer-impressum {
+    margin-top: 50px;
+    padding-top: 30px;
+    border-top: 1px solid #222; /* Eine sehr dezente dunkle Linie zur Abgrenzung */
+    width: 100%;
+}
+
+.footer-impressum h3 {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.impressum-content {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: #ccc; /* Leicht gedimmte Textfarbe für den rechtlichen Teil */
+}
+
+.impressum-content p {
+    margin-bottom: 12px;
+}
+
+.impressum-content a {
+    color: #fff;
+    text-decoration: underline;
+}
+
+.impressum-content small {
+    display: block;
+    font-size: 0.75rem;
+    color: #777;
+    margin-top: 8px;
+}
+
 /* --- MOBILE RESPONSIVENESS --- */
 @media (max-width: 768px) {
     .band-logo {
