@@ -1,0 +1,16 @@
+# Latest release shown in the "Music" section.
+text: Single HIGH TECH LOW LIFE out now on all platforms.
+spotify_track: 4KeBjUhBmntMY0KmNAPFlP   # the ID from the Spotify track link
+title: High Tech Low Life
+
+# icon must match a file in media/icons/ (youtube, spotify, apple, instagram)
+links:
+  - name: YouTube
+    icon: youtube
+    url: https://www.youtube.com/watch?v=I7IqrL_68mI&list=OLAK5uy_nA8-x_kBMxwFiaV1fEfOovtxozwAJGCb0
+  - name: Spotify
+    icon: spotify
+    url: https://open.spotify.com/intl-de/track/4KeBjUhBmntMY0KmNAPFlP
+  - name: Apple Music
+    icon: apple
+    url: https://music.apple.com/us/album/high-tech-low-life/6797703756?i=6797703757

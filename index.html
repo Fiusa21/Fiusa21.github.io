@@ -1,3 +1,6 @@
+---
+# Rendered by Jekyll (GitHub Pages). Content lives in _data/*.yml
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,118 +38,66 @@
 </header>
 
 <main>
+  {% assign release = site.data.release %}
   <section id="music" class="content-section">
     <h2>Latest Release</h2>
-    <p>Single HIGH TECH LOW LIFE out now on all platforms.</p>
-    <!-- Embeds are only loaded after the visitor clicks (GDPR), see main.js -->
-    <div class="embed embed-spotify"
-         data-src="https://open.spotify.com/embed/track/4KeBjUhBmntMY0KmNAPFlP"
-         data-title="Spotify player: High Tech Low Life">
-      <p>This player is provided by Spotify. Loading it sends data (e.g. your IP address) to Spotify.
-        <a href="datenschutz.html">Privacy policy</a></p>
-      <button type="button" class="embed-button">Load Spotify player</button>
+    <p>{{ release.text | escape }}</p>
+    <div class="embed embed-spotify">
+      <iframe src="https://open.spotify.com/embed/track/{{ release.spotify_track }}"
+              title="Spotify player: {{ release.title | escape }}"
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+              allowfullscreen loading="lazy">
+      </iframe>
     </div>
     <div class="music-links">
-      <a href="https://www.youtube.com/watch?v=I7IqrL_68mI&list=OLAK5uy_nA8-x_kBMxwFiaV1fEfOovtxozwAJGCb0" target="_blank" rel="noopener noreferrer" class="music-link" title="Listen on YouTube">
-        <img src="media/icons/youtube.svg" alt="" class="icon"> YouTube
+      {% for link in release.links %}
+      <a href="{{ link.url | escape }}" target="_blank" rel="noopener noreferrer" class="music-link" title="Listen on {{ link.name | escape }}">
+        <img src="media/icons/{{ link.icon }}.svg" alt="" class="icon"> {{ link.name | escape }}
       </a>
-      <a href="https://open.spotify.com/intl-de/track/4KeBjUhBmntMY0KmNAPFlP" target="_blank" rel="noopener noreferrer" class="music-link" title="Listen on Spotify">
-        <img src="media/icons/spotify.svg" alt="" class="icon"> Spotify
-      </a>
-      <a href="https://music.apple.com/us/album/high-tech-low-life/6797703756?i=6797703757" target="_blank" rel="noopener noreferrer" class="music-link" title="Listen on Apple Music">
-        <img src="media/icons/apple.svg" alt="" class="icon"> Apple Music
-      </a>
+      {% endfor %}
     </div>
   </section>
 
   <section id="videos" class="content-section">
     <h2>Videos</h2>
-    <p>BROAD ISSUE - High Tech Low Life (Official Music Video)</p>
-    <div class="embed embed-video"
-         data-src="https://www.youtube-nocookie.com/embed/I7IqrL_68mI"
-         data-title="BROAD ISSUE - High Tech Low Life (Official Music Video)">
-      <p>This video is provided by YouTube. Loading it sends data (e.g. your IP address) to Google.
-        <a href="datenschutz.html">Privacy policy</a></p>
-      <button type="button" class="embed-button">Load video</button>
+    {% for video in site.data.videos %}
+    <p>{{ video.title | escape }}</p>
+    <div class="embed embed-video">
+      <iframe src="https://www.youtube-nocookie.com/embed/{{ video.id }}{% if video.start %}?start={{ video.start }}{% endif %}"
+              title="{{ video.title | escape }}"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen loading="lazy">
+      </iframe>
     </div>
-    <p>BROAD ISSUE (Full Set) 11.04.26 Kulturbunker Stuttgart</p>
-    <div class="embed embed-video"
-         data-src="https://www.youtube-nocookie.com/embed/BSRk0dz_DAs?start=944"
-         data-title="BROAD ISSUE (Full Set) 11.04.26 Kulturbunker Stuttgart">
-      <p>This video is provided by YouTube. Loading it sends data (e.g. your IP address) to Google.
-        <a href="datenschutz.html">Privacy policy</a></p>
-      <button type="button" class="embed-button">Load video</button>
-    </div>
+    {% endfor %}
   </section>
 
+  {% assign today = site.time | date: "%Y-%m-%d" %}
   <section id="tour" class="content-section">
-    <h2>Concert Dates 2026</h2>
+    {% for year in site.data.concerts %}
+    <h2{% unless forloop.first %} class="tour-year"{% endunless %}>Concert Dates {{ year.year }}</h2>
     <ul class="tour-list">
-      <li class="past">
-        <span>APR 25</span>
-        <span>KIRCHHEIM-TECK</span>
-        <a href="https://loveyourartist.com/de/events/brokencyde-dot-dot-curve-kirchheim-N3QR2J" class="ticket-button">TICKETS</a>
+      {% for show in year.shows %}
+      {% assign day = show.date | date: "%Y-%m-%d" %}
+      <li data-date="{{ day }}"{% if day < today %} class="past"{% endif %}>
+        <span>{{ show.date | date: "%b %d" | upcase }}</span>
+        <span>{{ show.name | escape }}</span>
+        {% if show.url %}
+        <a href="{{ show.url | escape }}" class="ticket-button">{{ show.label | default: "TICKETS" | escape }}</a>
+        {% else %}
+        <span class="ticket-button ticket-info">{{ show.label | default: "T.B.A." | escape }}</span>
+        {% endif %}
       </li>
-      <li class="past">
-        <span>MAY 09</span>
-        <span>GERLINGEN</span>
-        <a href="https://www.eventbrite.com/e/solitude-hc-tickets-1987306945571" class="ticket-button">TICKETS</a>
-      </li>
-      <li class="past">
-        <span>MAY 16</span>
-        <span>STUTTGART</span>
-        <span class="ticket-button ticket-info">FREE</span>
-      </li>
-      <li class="past">
-        <span>AUG 01</span>
-        <span>rockXplosion</span>
-        <a href="https://rockxplosion.de/" class="ticket-button">FREE!</a>
-      </li>
-      <li class="past">
-        <span>AUG 08</span>
-        <span>U&amp;D - STUTTGART</span>
-        <a href="https://www.ud-stuttgart.de/" class="ticket-button">FREE!</a>
-      </li>
-      <li class="past">
-        <span>SEP 04</span>
-        <span>Beats for Freaks - BACKNANG</span>
-        <a href="https://eventfrog.de/de/p/konzerte/pop-rock/beats-for-freaks-2026-7492273971234107499.html" class="ticket-button">TICKETS</a>
-      </li>
-      <li class="past">
-        <span>SEP 18</span>
-        <span>U&amp;D Weingarten</span>
-        <a href="https://umsonstunddraussen.org/" class="ticket-button">FREE!</a>
-      </li>
-      <li>
-        <span>OCT 09</span>
-        <span>HATEBRONN HARDCORE</span>
-        <a href="https://www.eventim-light.com/de/a/698f33c98e1360659b3f9b8f/e/6a4aa132b07ee010233d53c3" class="ticket-button">TICKETS</a>
-      </li>
-      <li>
-        <span>OCT 10</span>
-        <span>DITZINGEN</span>
-        <span class="ticket-button ticket-info">T.B.A.</span>
-      </li>
-      <li>
-        <span>NOV 13</span>
-        <span>Art Canrobert - RASTATT</span>
-        <span class="ticket-button ticket-info">DOORS</span>
-      </li>
-      <li>
-        <span>DEC 05</span>
-        <span>Core Fest - BTTR</span>
-        <a href="https://shop.niftee.eu/event/core-fest-goes-back-to-the-roots-stuttgart-club--xd8egk" class="ticket-button">TICKETS</a>
-      </li>
-    </ul>
-
-    <h2 class="tour-year">Concert Dates 2027</h2>
-    <ul class="tour-list">
+      {% else %}
       <li>
         <span>T.B.A.</span>
         <span>T.B.A.</span>
         <span class="ticket-button ticket-info">T.B.A.</span>
       </li>
+      {% endfor %}
     </ul>
+    {% endfor %}
   </section>
 
 </main>
@@ -154,20 +105,13 @@
 <footer id="contact">
   <h2>Find us on:</h2>
   <div class="social-links">
-    <a href="https://www.youtube.com/@BroadIssue" target="_blank" rel="noopener noreferrer" class="social-link" title="Find us on YouTube">
-      <img src="media/icons/youtube.svg" alt="" class="icon"> YouTube
+    {% for link in site.data.socials %}
+    <a href="{{ link.url | escape }}" target="_blank" rel="noopener noreferrer" class="social-link" title="Find us on {{ link.name | escape }}">
+      <img src="media/icons/{{ link.icon }}.svg" alt="" class="icon"> {{ link.name | escape }}
     </a>
-    <a href="https://open.spotify.com/intl-de/artist/0Nx86hFjGPkztqyz0xb8Oo" target="_blank" rel="noopener noreferrer" class="social-link" title="Find us on Spotify">
-      <img src="media/icons/spotify.svg" alt="" class="icon"> Spotify
-    </a>
-    <a href="https://music.apple.com/de/artist/broad-issue/1892689223" target="_blank" rel="noopener noreferrer" class="social-link" title="Find us on Apple Music">
-      <img src="media/icons/apple.svg" alt="" class="icon"> Apple Music
-    </a>
-    <a href="https://www.instagram.com/broad_issue" target="_blank" rel="noopener noreferrer" class="social-link" title="Find us on Instagram">
-      <img src="media/icons/instagram.svg" alt="" class="icon"> Instagram
-    </a>
+    {% endfor %}
   </div>
-  <p>&copy; 2026 BROAD ISSUE. All Rights Reserved.</p>
+  <p>&copy; {{ site.time | date: "%Y" }} BROAD ISSUE. All Rights Reserved.</p>
   <img src="media/logo.png" alt="Band Logo" class="band-logo-footer">
   <nav class="footer-legal">
     <a href="impressum.html">Impressum</a>
