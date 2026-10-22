@@ -18,3 +18,4 @@
 - name: Brot Issue
   front: shirt4_front.jpg
   back: shirt4_back.jpg
+  label: "SOLD OUT"
