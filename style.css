@@ -433,7 +433,6 @@ div.merch-photo {
     transition: opacity 0.3s;
 }
 
-.merch-photo:hover .merch-back,
 .merch-photo[aria-pressed="true"] .merch-back {
     opacity: 1;
 }
@@ -457,9 +456,19 @@ div.merch-photo {
     content: 'Front';
 }
 
-.merch-photo:hover .merch-hint::after,
 .merch-photo[aria-pressed="true"] .merch-hint::after {
     content: 'Back';
+}
+
+/* Hover only on real pointers: touch screens keep :hover stuck after a tap */
+@media (hover: hover) {
+    .merch-photo:hover .merch-back {
+        opacity: 1;
+    }
+
+    .merch-photo:hover .merch-hint::after {
+        content: 'Back';
+    }
 }
 
 .merch-name {
@@ -644,10 +653,42 @@ div.merch-photo {
         font-size: 0.85rem;
     }
 
-    .tour-list .btn {
+    .tour-list .btn,
+    .merch-item .btn {
         padding: 6px 10px;
         font-size: 0.68rem;
         letter-spacing: 1px;
+    }
+
+    /* Two shirts per row */
+    .merch-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 32px 12px;
+    }
+
+    .merch-name {
+        font-size: 0.85rem;
+        line-height: 1.3;
+    }
+
+    .merch-hint {
+        right: 6px;
+        bottom: 6px;
+        padding: 1px 6px;
+        font-size: 0.55rem;
+        letter-spacing: 1px;
+    }
+}
+
+/* Small phones (iPhone SE): six nav links need tighter spacing */
+@media (max-width: 360px) {
+    .nav-links {
+        gap: 9px;
+    }
+
+    .nav-links a {
+        font-size: 0.62rem;
+        letter-spacing: 0.5px;
     }
 }
 
