@@ -5,6 +5,9 @@
 #     name: Core Fest - BTTR      (city / venue / festival, as it should appear)
 #     url: https://...            (optional: ticket or event page)
 #     label: FREE!                (optional: button text, defaults to TICKETS)
+#     city: Stuttgart             (needed for the show to appear in Google's event results)
+#     venue: Club Name            (optional: venue for Google, defaults to name)
+#     address: Street 1           (optional: street address for Google)
 #
 # A year with no shows yet (shows: []) displays a single "T.B.A." row.
 
@@ -43,9 +46,12 @@
     - date: 2026-11-13
       name: Art Canrobert - RASTATT
       label: DOORS
+      city: Rastatt
+      venue: Art Canrobert
     - date: 2026-12-05
       name: Core Fest - BTTR
       url: https://shop.niftee.eu/event/core-fest-goes-back-to-the-roots-stuttgart-club--xd8egk
+      city: Stuttgart
 
 - year: 2027
   shows: []
