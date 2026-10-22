@@ -1,0 +1,20 @@
+# Merch shown in the "Merch" section, left to right.
+#   name:  as it should appear
+#   front: image in media/ (front view)
+#   back:  optional image in media/ (back view, shown on hover / tap)
+#   price: optional, e.g. "25 €"
+#   url:   optional shop link; without one the button reads "AT SHOWS"
+#   label: optional button text, defaults to SHOP (or AT SHOWS without url)
+
+- name: High Tech Low Life
+  front: shirt1_front.jpg
+  back: shirt1_back.jpg
+- name: Brackets
+  front: shirt2_front.jpg
+  back: shirt2_back.jpg
+- name: Exercise Your Wrath
+  front: shirt3_front.jpg
+  back: shirt3_back.jpg
+- name: Brot Issue
+  front: shirt4_front.jpg
+  back: shirt4_back.jpg

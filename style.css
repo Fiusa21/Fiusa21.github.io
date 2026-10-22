@@ -387,6 +387,93 @@ img {
     text-decoration: line-through;
 }
 
+/* --- MERCH --- */
+.merch-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 250px)); /* photos are 250px wide */
+    justify-content: center;
+    gap: 40px 24px;
+    list-style: none;
+}
+
+.merch-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Front and back stacked; the back fades in on hover / tap */
+.merch-photo {
+    position: relative;
+    display: block;
+    width: 100%;
+    margin-bottom: 8px;
+    padding: 0;
+    border: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #fff; /* photos have a white background */
+    cursor: pointer;
+}
+
+div.merch-photo {
+    cursor: default;
+}
+
+.merch-photo img {
+    display: block;
+    width: 100%;
+}
+
+.merch-back {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.merch-photo:hover .merch-back,
+.merch-photo[aria-pressed="true"] .merch-back {
+    opacity: 1;
+}
+
+.merch-hint {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    padding: 2px 8px;
+    background: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font-main);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* Names the side currently shown */
+.merch-hint::after {
+    content: 'Front';
+}
+
+.merch-photo:hover .merch-hint::after,
+.merch-photo[aria-pressed="true"] .merch-hint::after {
+    content: 'Back';
+}
+
+.merch-name {
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.merch-price {
+    color: var(--red);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
 /* --- BAND --- */
 .band-photo {
     display: block;
