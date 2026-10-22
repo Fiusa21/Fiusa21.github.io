@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Only allow resources from this site; embeds are limited to YouTube (no-cookie) and Spotify -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; frame-src https://www.youtube-nocookie.com https://open.spotify.com; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'">
   <title>BROAD ISSUE</title>
   <link rel="stylesheet" href="style.css">
-  <!-- Importing a clean, modern font from Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <script src="main.js" defer></script>
 </head>
 <body>
 
@@ -34,27 +34,27 @@
   </div>
 </header>
 
-<!-- Content Sections (Example) -->
 <main>
   <section id="music" class="content-section">
     <h2>Latest Release</h2>
     <p>Single HIGH TECH LOW LIFE out now on all platforms.</p>
-    <!--<div class="placeholder-box">
-      <img src="media/red_cover_design_3.jpg" alt="Single Logo" class="single-logo">
-    </div> -->
-    <iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/4KeBjUhBmntMY0KmNAPFlP?utm_source=generator&si=9d76b129e5d64004"
-            width="100%" height="352" frameBorder="0" allowfullscreen=""
-            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy">
-    </iframe>
+    <!-- Embeds are only loaded after the visitor clicks (GDPR), see main.js -->
+    <div class="embed embed-spotify"
+         data-src="https://open.spotify.com/embed/track/4KeBjUhBmntMY0KmNAPFlP"
+         data-title="Spotify player: High Tech Low Life">
+      <p>This player is provided by Spotify. Loading it sends data (e.g. your IP address) to Spotify.
+        <a href="datenschutz.html">Privacy policy</a></p>
+      <button type="button" class="embed-button">Load Spotify player</button>
+    </div>
     <div class="music-links">
-      <a href="https://www.youtube.com/watch?v=I7IqrL_68mI&list=OLAK5uy_nA8-x_kBMxwFiaV1fEfOovtxozwAJGCb0" target="_blank" class="music-link" title="Listen on YouTube">
-        <i class="fab fa-youtube"></i> YouTube
+      <a href="https://www.youtube.com/watch?v=I7IqrL_68mI&list=OLAK5uy_nA8-x_kBMxwFiaV1fEfOovtxozwAJGCb0" target="_blank" rel="noopener noreferrer" class="music-link" title="Listen on YouTube">
+        <img src="media/icons/youtube.svg" alt="" class="icon"> YouTube
       </a>
-      <a href="https://open.spotify.com/intl-de/track/4KeBjUhBmntMY0KmNAPFlP?si=e2ba3e8788634674" target="_blank" class="music-link" title="Listen on Spotify">
-        <i class="fab fa-spotify"></i> Spotify
+      <a href="https://open.spotify.com/intl-de/track/4KeBjUhBmntMY0KmNAPFlP" target="_blank" rel="noopener noreferrer" class="music-link" title="Listen on Spotify">
+        <img src="media/icons/spotify.svg" alt="" class="icon"> Spotify
       </a>
-      <a href="https://music.apple.com/us/album/high-tech-low-life/6797703756?i=6797703757" target="_blank" class="music-link" title="Listen on Apple Music">
-        <i class="fab fa-apple"></i> Apple Music
+      <a href="https://music.apple.com/us/album/high-tech-low-life/6797703756?i=6797703757" target="_blank" rel="noopener noreferrer" class="music-link" title="Listen on Apple Music">
+        <img src="media/icons/apple.svg" alt="" class="icon"> Apple Music
       </a>
     </div>
   </section>
@@ -62,24 +62,20 @@
   <section id="videos" class="content-section">
     <h2>Videos</h2>
     <p>BROAD ISSUE - High Tech Low Life (Official Music Video)</p>
-    <div class="placeholder-box video-box">
-      <iframe
-              src="https://www.youtube.com/embed/I7IqrL_68mI"
-              title="YouTube video player"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen>
-      </iframe>
+    <div class="embed embed-video"
+         data-src="https://www.youtube-nocookie.com/embed/I7IqrL_68mI"
+         data-title="BROAD ISSUE - High Tech Low Life (Official Music Video)">
+      <p>This video is provided by YouTube. Loading it sends data (e.g. your IP address) to Google.
+        <a href="datenschutz.html">Privacy policy</a></p>
+      <button type="button" class="embed-button">Load video</button>
     </div>
     <p>BROAD ISSUE (Full Set) 11.04.26 Kulturbunker Stuttgart</p>
-    <div class="placeholder-box video-box">
-      <iframe
-              src="https://www.youtube.com/embed/BSRk0dz_DAs&t=944s"
-              title="YouTube video player"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen>
-      </iframe>
+    <div class="embed embed-video"
+         data-src="https://www.youtube-nocookie.com/embed/BSRk0dz_DAs?start=944"
+         data-title="BROAD ISSUE (Full Set) 11.04.26 Kulturbunker Stuttgart">
+      <p>This video is provided by YouTube. Loading it sends data (e.g. your IP address) to Google.
+        <a href="datenschutz.html">Privacy policy</a></p>
+      <button type="button" class="embed-button">Load video</button>
     </div>
   </section>
 
@@ -94,12 +90,12 @@
       <li class="past">
         <span>MAY 09</span>
         <span>GERLINGEN</span>
-        <a href="https://www.eventbrite.com/e/solitude-hc-tickets-1987306945571?aff=oddtdtcreator" class="ticket-button">TICKETS</a>
+        <a href="https://www.eventbrite.com/e/solitude-hc-tickets-1987306945571" class="ticket-button">TICKETS</a>
       </li>
       <li class="past">
         <span>MAY 16</span>
         <span>STUTTGART</span>
-        <a href="" class="ticket-button">FREE</a>
+        <span class="ticket-button ticket-info">FREE</span>
       </li>
       <li class="past">
         <span>AUG 01</span>
@@ -108,7 +104,7 @@
       </li>
       <li class="past">
         <span>AUG 08</span>
-        <span>U&D - STUTTGART</span>
+        <span>U&amp;D - STUTTGART</span>
         <a href="https://www.ud-stuttgart.de/" class="ticket-button">FREE!</a>
       </li>
       <li class="past">
@@ -118,7 +114,7 @@
       </li>
       <li class="past">
         <span>SEP 18</span>
-        <span>U&D Weingarten</span>
+        <span>U&amp;D Weingarten</span>
         <a href="https://umsonstunddraussen.org/" class="ticket-button">FREE!</a>
       </li>
       <li>
@@ -129,12 +125,12 @@
       <li>
         <span>OCT 10</span>
         <span>DITZINGEN</span>
-        <a href="" class="ticket-button">T.B.A.</a>
+        <span class="ticket-button ticket-info">T.B.A.</span>
       </li>
       <li>
         <span>NOV 13</span>
         <span>Art Canrobert - RASTATT</span>
-        <a href="" class="ticket-button">DOORS</a>
+        <span class="ticket-button ticket-info">DOORS</span>
       </li>
       <li>
         <span>DEC 05</span>
@@ -143,62 +139,40 @@
       </li>
     </ul>
 
-    <h2></h2>
-    <h2></h2>
-    <h2>Concert Dates 2027</h2>
+    <h2 class="tour-year">Concert Dates 2027</h2>
     <ul class="tour-list">
       <li>
         <span>T.B.A.</span>
         <span>T.B.A.</span>
-        <a href="" class="ticket-button">T.B.A.</a>
+        <span class="ticket-button ticket-info">T.B.A.</span>
       </li>
     </ul>
   </section>
 
 </main>
 
-<section id="contact">
-  <footer>
-    <h2>Find us on:</h2>
-    <div class="social-links">
-      <a href="https://www.youtube.com/@BroadIssue" target="_blank" class="social-link" title="Find us on YouTube">
-        <i class="fab fa-youtube"></i> YouTube
-      </a>
-      <a href="https://open.spotify.com/intl-de/artist/0Nx86hFjGPkztqyz0xb8Oo?si=rUjO8bFoRkqMWAHlz-_2uQ" target="_blank" class="social-link" title="Find us on Spotify">
-        <i class="fab fa-spotify"></i> Spotify
-      </a>
-      <a href="https://music.apple.com/de/artist/broad-issue/1892689223" target="_blank" class="social-link" title="Find os on Apple Music">
-        <i class="fab fa-apple"></i> Apple Music
-      </a>
-      <a href="https://www.instagram.com/broad_issue?igsh=MXhwNjZmZDAxZDJjdg==" target="_blank" class="social-link" title="Find os on Apple Music">
-        <i class="fab fa-instagram"></i> Instagram
-      </a>
-    </div>
-    <p>&copy; 2026 BROAD ISSUE. All Rights Reserved.</p>
-    <img src="media/logo.png" alt="Band Logo" class="band-logo-footer">
-    <!-- Impressum am absoluten Ende der Seite platziert -->
-    <div id="impressum" class="footer-impressum">
-      <h3>Impressum</h3>
-      <div class="impressum-content">
-        <p>Angaben gemäß § 5 DDG</p>
-        <p>Yannick Schilling<br>
-          <br>
-          Innsbrucker Straße 52<br>
-          70329 Stuttgart <br>
-        </p>
-        <p> <strong>Vertreten durch: </strong><br>
-          Yannick Schilling<br>
-        </p>
-        <p><strong>Kontakt:</strong> <br>
-          Telefon: +49-15734711767<br>
-          E-Mail: <a href="nachvorn5@googlemail.com'">nachvorn5@googlemail.com</a></br></p>
-        <p><strong>Verbraucherstreitbeilegung / Universalschlichtungsstelle</strong>
-          <br>Wir nehmen nicht an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teil und sind dazu auch nicht verpflichtet.
-        </p>
-      </div>
-    </div>
-
-  </footer>
-</section>
+<footer id="contact">
+  <h2>Find us on:</h2>
+  <div class="social-links">
+    <a href="https://www.youtube.com/@BroadIssue" target="_blank" rel="noopener noreferrer" class="social-link" title="Find us on YouTube">
+      <img src="media/icons/youtube.svg" alt="" class="icon"> YouTube
+    </a>
+    <a href="https://open.spotify.com/intl-de/artist/0Nx86hFjGPkztqyz0xb8Oo" target="_blank" rel="noopener noreferrer" class="social-link" title="Find us on Spotify">
+      <img src="media/icons/spotify.svg" alt="" class="icon"> Spotify
+    </a>
+    <a href="https://music.apple.com/de/artist/broad-issue/1892689223" target="_blank" rel="noopener noreferrer" class="social-link" title="Find us on Apple Music">
+      <img src="media/icons/apple.svg" alt="" class="icon"> Apple Music
+    </a>
+    <a href="https://www.instagram.com/broad_issue" target="_blank" rel="noopener noreferrer" class="social-link" title="Find us on Instagram">
+      <img src="media/icons/instagram.svg" alt="" class="icon"> Instagram
+    </a>
+  </div>
+  <p>&copy; 2026 BROAD ISSUE. All Rights Reserved.</p>
+  <img src="media/logo.png" alt="Band Logo" class="band-logo-footer">
+  <nav class="footer-legal">
+    <a href="impressum.html">Impressum</a>
+    <a href="datenschutz.html">Datenschutz</a>
+  </nav>
+</footer>
 </body>
 </html>

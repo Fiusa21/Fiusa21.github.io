@@ -1,3 +1,12 @@
+/* --- FONTS (self-hosted, no request to Google) --- */
+@font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 300 700; /* variable font: one file covers all weights */
+    font-display: swap;
+    src: url('fonts/montserrat-latin.woff2') format('woff2');
+}
+
 /* --- CSS VARIABLES FOR EASY EDITING --- */
 :root {
     --bg-color: #121212;
@@ -302,43 +311,140 @@ footer {
     color: var(--accent-color);
 }
 
-.footer-impressum {
-    margin-top: 50px;
-    padding-top: 30px;
-    border-top: 1px solid #222; /* Eine sehr dezente dunkle Linie zur Abgrenzung */
+.ticket-info {
+    cursor: default;
+}
+
+.ticket-info:hover {
+    background: transparent;
+    color: white;
+}
+
+.tour-year {
+    margin-top: 80px;
+}
+
+/* --- ICONS (Font Awesome Free SVGs, CC BY 4.0) --- */
+.icon {
+    width: 1.1em;
+    height: 1.1em;
+    filter: invert(1); /* SVGs are black, buttons are dark */
+}
+
+/* --- CLICK-TO-LOAD EMBEDS --- */
+.embed {
     width: 100%;
-}
-
-.footer-impressum h3 {
-    font-size: 1.2rem;
-    margin-bottom: 15px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.impressum-content {
-    max-width: 600px;
-    margin: 0 auto;
-    text-align: center;
+    margin: 20px auto;
+    background: #222;
+    border: 1px solid #444;
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    padding: 20px;
     font-size: 0.85rem;
-    line-height: 1.5;
-    color: #ccc; /* Leicht gedimmte Textfarbe für den rechtlichen Teil */
+    color: #ccc;
 }
 
-.impressum-content p {
+.embed-video {
+    max-width: 640px;
+    aspect-ratio: 16 / 9;
+}
+
+.embed-spotify {
+    height: 352px;
+}
+
+.embed a {
+    color: #fff;
+}
+
+.embed-button {
+    font-family: var(--font-main);
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: #fff;
+    background: #ff0000;
+    border: none;
+    border-radius: 50px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.embed-button:hover {
+    transform: translateY(-3px);
+}
+
+.embed.embed-loaded {
+    padding: 0;
+    border: none;
+    background: none;
+}
+
+.embed iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+/* --- FOOTER LEGAL LINKS --- */
+.footer-legal {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #222;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.footer-legal a {
+    color: var(--accent-color);
+}
+
+/* --- IMPRESSUM / DATENSCHUTZ PAGES --- */
+.legal-page {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 60px 20px;
+    color: #ccc;
+    font-size: 0.95rem;
+}
+
+.legal-page h1 {
+    color: var(--text-color);
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin: 30px 0;
+}
+
+.legal-page h2 {
+    color: var(--text-color);
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    margin: 30px 0 10px;
+}
+
+.legal-page p,
+.legal-page ul {
     margin-bottom: 12px;
 }
 
-.impressum-content a {
-    color: #fff;
-    text-decoration: underline;
+.legal-page ul {
+    padding-left: 20px;
 }
 
-.impressum-content small {
-    display: block;
-    font-size: 0.75rem;
-    color: #777;
-    margin-top: 8px;
+.legal-page a {
+    color: #fff;
+}
+
+.back-link {
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 2px;
 }
 
 /* --- MOBILE RESPONSIVENESS --- */
