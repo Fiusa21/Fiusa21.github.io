@@ -21,6 +21,16 @@ if (nextShow) {
   }
 }
 
+// Merch: tap / click a shirt to flip between front and back (hover does this on desktop).
+document.querySelectorAll('button.merch-photo').forEach((photo) => {
+  const name = photo.querySelector('.merch-front').alt.replace(/ shirt, front$/, '');
+  photo.addEventListener('click', () => {
+    const showBack = photo.getAttribute('aria-pressed') !== 'true';
+    photo.setAttribute('aria-pressed', showBack);
+    photo.setAttribute('aria-label', `${name}: show ${showBack ? 'front' : 'back'}`);
+  });
+});
+
 // Solid navbar once the hero is scrolled past.
 const navbar = document.querySelector('.navbar');
 new IntersectionObserver(([hero]) => {
