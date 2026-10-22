@@ -21,6 +21,64 @@
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
+  {% if site.google_site_verification %}<meta name="google-site-verification" content="{{ site.google_site_verification | escape }}">{% endif %}
+
+  <!-- Structured data for Google: the band, plus upcoming shows as events -->
+  {% assign today = site.time | date: "%Y-%m-%d" %}
+  {% assign tour_url = site.url | append: "/#tour" %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "MusicGroup",
+        "@id": "{{ site.url }}/#band",
+        "name": {{ site.title | jsonify }},
+        "url": "{{ site.url }}/",
+        "description": {{ site.description | jsonify }},
+        "image": "{{ site.url }}/media/og.jpg",
+        "logo": "{{ site.url }}/media/logo-red.webp",
+        "foundingLocation": { "@type": "Place", "name": "Stuttgart, Germany" },
+        "member": [{% for member in site.data.members %}{ "@type": "Person", "name": {{ member.name | jsonify }} }{% unless forloop.last %}, {% endunless %}{% endfor %}],
+        "sameAs": [{% for link in site.data.socials %}{{ link.url | jsonify }}{% unless forloop.last %}, {% endunless %}{% endfor %}]
+      }
+      {%- for year in site.data.concerts %}{% for show in year.shows %}
+      {%- assign day = show.date | date: "%Y-%m-%d" %}
+      {%- if show.city and day >= today %},
+      {
+        "@type": "MusicEvent",
+        "name": {{ site.title | append: " – " | append: show.name | jsonify }},
+        "startDate": "{{ day }}",
+        "eventStatus": "https://schema.org/EventScheduled",
+        "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+        "image": "{{ site.url }}/media/og.jpg",
+        "url": {{ show.url | default: tour_url | jsonify }},
+        "location": {
+          "@type": "Place",
+          "name": {{ show.venue | default: show.name | jsonify }},
+          "address": {
+            "@type": "PostalAddress",
+            {% if show.address %}"streetAddress": {{ show.address | jsonify }},{% endif %}
+            "addressLocality": {{ show.city | jsonify }},
+            "addressCountry": "DE"
+          }
+        },
+        "performer": { "@id": "{{ site.url }}/#band" },
+        "organizer": { "@id": "{{ site.url }}/#band" }
+        {%- if show.url %},
+        "offers": {
+          "@type": "Offer",
+          "url": {{ show.url | jsonify }}{% if show.label contains "FREE" %},
+          "price": 0,
+          "priceCurrency": "EUR"{% endif %}
+        }
+        {%- endif %}
+      }
+      {%- endif %}
+      {%- endfor %}{% endfor %}
+    ]
+  }
+  </script>
 
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="icon" href="favicon.png" type="image/png" sizes="32x32">
@@ -31,7 +89,6 @@
 </head>
 <body>
 
-{% assign today = site.time | date: "%Y-%m-%d" %}
 {% assign next_show = nil %}
 {% for year in site.data.concerts %}
   {% for show in year.shows %}
