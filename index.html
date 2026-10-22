@@ -8,11 +8,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Only allow resources from this site; embeds are limited to YouTube (no-cookie) and Spotify -->
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; frame-src https://www.youtube-nocookie.com https://open.spotify.com; connect-src 'none'; object-src 'none'; base-uri 'self'; form-action 'none'">
-  <title>BROAD ISSUE</title>
+  <title>{{ site.title }}</title>
+  <meta name="description" content="{{ site.description | escape }}">
+  <meta name="theme-color" content="#121212">
+
+  <!-- Link previews (WhatsApp, Instagram, Facebook, ...) -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="{{ site.title }}">
+  <meta property="og:description" content="{{ site.description | escape }}">
+  <meta property="og:url" content="{{ site.url }}/">
+  <meta property="og:image" content="{{ site.url }}/media/og.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="preload" href="fonts/montserrat-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="style.css">
   <script src="main.js" defer></script>
 </head>
 <body>
+
+{% assign today = site.time | date: "%Y-%m-%d" %}
+{% assign next_show = nil %}
+{% for year in site.data.concerts %}
+  {% for show in year.shows %}
+    {% assign day = show.date | date: "%Y-%m-%d" %}
+    {% if next_show == nil and day >= today %}{% assign next_show = show %}{% endif %}
+  {% endfor %}
+{% endfor %}
 
 <!-- Navigation Bar -->
 <nav class="navbar">
@@ -20,99 +46,131 @@
     <li><a href="#music">Music</a></li>
     <li><a href="#videos">Videos</a></li>
     <li><a href="#tour">Tour</a></li>
+    <li><a href="#band">Band</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
 
 <!-- Hero Banner with Band Photo & Logo -->
 <header class="hero">
-  <div class="overlay"></div>
-
   <div class="hero-content">
-    <img src="media/logo_white.png" alt="Band Logo" class="main-logo">
+    <h1><img src="media/logo-white.webp" alt="BROAD ISSUE" class="main-logo" width="1600" height="275"></h1>
+    {% if next_show %}
+    <p class="next-show">
+      <span class="next-show-label">Next show</span>
+      <span class="next-show-text">{{ next_show.date | date: "%b %d" | upcase }} · {{ next_show.name | escape }}</span>
+    </p>
+    {% endif %}
+    <div class="hero-actions">
+      <a href="#music" class="btn btn-primary">Listen now</a>
+      <a href="#tour" class="btn">Tour dates</a>
+    </div>
   </div>
 
-  <div class="scroll-indicator">
-    <span>↓</span>
-  </div>
+  <a href="#music" class="scroll-indicator" aria-label="Scroll down">↓</a>
 </header>
 
 <main>
   {% assign release = site.data.release %}
-  <section id="music" class="content-section">
-    <h2>Latest Release</h2>
-    <p>{{ release.text | escape }}</p>
-    <div class="embed embed-spotify">
-      <iframe src="https://open.spotify.com/embed/track/{{ release.spotify_track }}"
-              title="Spotify player: {{ release.title | escape }}"
-              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-              allowfullscreen loading="lazy">
-      </iframe>
+  <section id="music" class="section">
+    <h2 class="section-title">Music</h2>
+    <div class="release">
+      <div class="release-info">
+        <p class="eyebrow">Latest release</p>
+        <h3 class="release-title">{{ release.title | escape }}</h3>
+        <p>{{ release.text | escape }}</p>
+        <div class="button-row">
+          {% for link in release.links %}
+          <a href="{{ link.url | escape }}" target="_blank" rel="noopener noreferrer" class="btn" title="Listen on {{ link.name | escape }}">
+            <img src="media/icons/{{ link.icon }}.svg" alt="" class="icon"> {{ link.name | escape }}
+          </a>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="embed embed-spotify">
+        <iframe src="https://open.spotify.com/embed/track/{{ release.spotify_track }}"
+                title="Spotify player: {{ release.title | escape }}"
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                allowfullscreen loading="lazy">
+        </iframe>
+      </div>
     </div>
-    <div class="music-links">
-      {% for link in release.links %}
-      <a href="{{ link.url | escape }}" target="_blank" rel="noopener noreferrer" class="music-link" title="Listen on {{ link.name | escape }}">
-        <img src="media/icons/{{ link.icon }}.svg" alt="" class="icon"> {{ link.name | escape }}
-      </a>
+  </section>
+
+  <section id="videos" class="section">
+    <h2 class="section-title">Videos</h2>
+    <div class="video-grid">
+      {% for video in site.data.videos %}
+      <figure class="video">
+        <div class="embed embed-video">
+          <iframe src="https://www.youtube-nocookie.com/embed/{{ video.id }}{% if video.start %}?start={{ video.start }}{% endif %}"
+                  title="{{ video.title | escape }}"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  referrerpolicy="strict-origin-when-cross-origin"
+                  allowfullscreen loading="lazy">
+          </iframe>
+        </div>
+        <figcaption>{{ video.title | escape }}</figcaption>
+      </figure>
       {% endfor %}
     </div>
   </section>
 
-  <section id="videos" class="content-section">
-    <h2>Videos</h2>
-    {% for video in site.data.videos %}
-    <p>{{ video.title | escape }}</p>
-    <div class="embed embed-video">
-      <iframe src="https://www.youtube-nocookie.com/embed/{{ video.id }}{% if video.start %}?start={{ video.start }}{% endif %}"
-              title="{{ video.title | escape }}"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              referrerpolicy="strict-origin-when-cross-origin"
-              allowfullscreen loading="lazy">
-      </iframe>
-    </div>
-    {% endfor %}
-  </section>
-
-  {% assign today = site.time | date: "%Y-%m-%d" %}
-  <section id="tour" class="content-section">
+  <section id="tour" class="section">
+    <h2 class="section-title">Tour</h2>
     {% for year in site.data.concerts %}
-    <h2{% unless forloop.first %} class="tour-year"{% endunless %}>Concert Dates {{ year.year }}</h2>
+    <h3 class="tour-year">{{ year.year }}</h3>
     <ul class="tour-list">
       {% for show in year.shows %}
       {% assign day = show.date | date: "%Y-%m-%d" %}
       <li data-date="{{ day }}"{% if day < today %} class="past"{% endif %}>
-        <span>{{ show.date | date: "%b %d" | upcase }}</span>
-        <span>{{ show.name | escape }}</span>
+        <span class="tour-date">
+          <span class="tour-day">{{ show.date | date: "%d" }}</span>
+          <span class="tour-month">{{ show.date | date: "%b" | upcase }}</span>
+        </span>
+        <span class="tour-name">{{ show.name | escape }}</span>
         {% if show.url %}
-        <a href="{{ show.url | escape }}" class="ticket-button">{{ show.label | default: "TICKETS" | escape }}</a>
+        <a href="{{ show.url | escape }}" class="btn">{{ show.label | default: "TICKETS" | escape }}</a>
         {% else %}
-        <span class="ticket-button ticket-info">{{ show.label | default: "T.B.A." | escape }}</span>
+        <span class="btn btn-static">{{ show.label | default: "T.B.A." | escape }}</span>
         {% endif %}
       </li>
       {% else %}
       <li>
-        <span>T.B.A.</span>
-        <span>T.B.A.</span>
-        <span class="ticket-button ticket-info">T.B.A.</span>
+        <span class="tour-date"><span class="tour-month">T.B.A.</span></span>
+        <span class="tour-name">New dates coming soon</span>
+        <span class="btn btn-static">T.B.A.</span>
       </li>
       {% endfor %}
     </ul>
     {% endfor %}
   </section>
 
+  <section id="band" class="section">
+    <h2 class="section-title">Band</h2>
+    <img src="media/band.webp" alt="The five members of BROAD ISSUE" class="band-photo" width="1600" height="900" loading="lazy">
+    <ul class="members">
+      {% for member in site.data.members %}
+      <li>
+        <span class="member-name">{{ member.name | escape }}</span>
+        <span class="member-role">{{ member.role | escape }}</span>
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
 </main>
 
-<footer id="contact">
-  <h2>Find us on:</h2>
-  <div class="social-links">
+<footer id="contact" class="footer">
+  <h2 class="section-title">Find us on</h2>
+  <div class="button-row">
     {% for link in site.data.socials %}
-    <a href="{{ link.url | escape }}" target="_blank" rel="noopener noreferrer" class="social-link" title="Find us on {{ link.name | escape }}">
+    <a href="{{ link.url | escape }}" target="_blank" rel="noopener noreferrer" class="btn" title="Find us on {{ link.name | escape }}">
       <img src="media/icons/{{ link.icon }}.svg" alt="" class="icon"> {{ link.name | escape }}
     </a>
     {% endfor %}
   </div>
-  <p>&copy; {{ site.time | date: "%Y" }} BROAD ISSUE. All Rights Reserved.</p>
-  <img src="media/logo.png" alt="Band Logo" class="band-logo-footer">
+  <img src="media/logo-red.webp" alt="BROAD ISSUE" class="footer-logo" width="1600" height="275" loading="lazy">
+  <p class="copyright">&copy; {{ site.time | date: "%Y" }} BROAD ISSUE. All Rights Reserved.</p>
   <nav class="footer-legal">
     <a href="impressum.html">Impressum</a>
     <a href="datenschutz.html">Datenschutz</a>
