@@ -1,0 +1,51 @@
+# Concert dates, grouped by year.
+#
+# Add a show:
+#   - date: 2026-12-05            (YYYY-MM-DD; shows before today are crossed out automatically)
+#     name: Core Fest - BTTR      (city / venue / festival, as it should appear)
+#     url: https://...            (optional: ticket or event page)
+#     label: FREE!                (optional: button text, defaults to TICKETS)
+#
+# A year with no shows yet (shows: []) displays a single "T.B.A." row.
+
+- year: 2026
+  shows:
+    - date: 2026-04-25
+      name: KIRCHHEIM-TECK
+      url: https://loveyourartist.com/de/events/brokencyde-dot-dot-curve-kirchheim-N3QR2J
+    - date: 2026-05-09
+      name: GERLINGEN
+      url: https://www.eventbrite.com/e/solitude-hc-tickets-1987306945571
+    - date: 2026-05-16
+      name: STUTTGART
+      label: FREE
+    - date: 2026-08-01
+      name: rockXplosion
+      url: https://rockxplosion.de/
+      label: FREE!
+    - date: 2026-08-08
+      name: U&D - STUTTGART
+      url: https://www.ud-stuttgart.de/
+      label: FREE!
+    - date: 2026-09-04
+      name: Beats for Freaks - BACKNANG
+      url: https://eventfrog.de/de/p/konzerte/pop-rock/beats-for-freaks-2026-7492273971234107499.html
+    - date: 2026-09-18
+      name: U&D Weingarten
+      url: https://umsonstunddraussen.org/
+      label: FREE!
+    - date: 2026-10-09
+      name: HATEBRONN HARDCORE
+      url: https://www.eventim-light.com/de/a/698f33c98e1360659b3f9b8f/e/6a4aa132b07ee010233d53c3
+    - date: 2026-10-10
+      name: DITZINGEN
+      label: T.B.A.
+    - date: 2026-11-13
+      name: Art Canrobert - RASTATT
+      label: DOORS
+    - date: 2026-12-05
+      name: Core Fest - BTTR
+      url: https://shop.niftee.eu/event/core-fest-goes-back-to-the-roots-stuttgart-club--xd8egk
+
+- year: 2027
+  shows: []

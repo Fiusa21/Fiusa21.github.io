@@ -1,0 +1,14 @@
+# Links in the "Find us on" footer.
+# icon must match a file in media/icons/ (youtube, spotify, apple, instagram)
+- name: YouTube
+  icon: youtube
+  url: https://www.youtube.com/@BroadIssue
+- name: Spotify
+  icon: spotify
+  url: https://open.spotify.com/intl-de/artist/0Nx86hFjGPkztqyz0xb8Oo
+- name: Apple Music
+  icon: apple
+  url: https://music.apple.com/de/artist/broad-issue/1892689223
+- name: Instagram
+  icon: instagram
+  url: https://www.instagram.com/broad_issue
